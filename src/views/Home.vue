@@ -1,6 +1,6 @@
 <template>
+  <TaskBanner :tasks="tasks"/>
   <div class="container">
-    <TaskBanner/>
     <ul class="list-group">
       <TaskRow v-for="t in tasks" :task="t" :key="t.id" @toggle="onToggle" @delete="onDelete"/>
     </ul>
