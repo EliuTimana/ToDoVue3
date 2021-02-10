@@ -1,6 +1,6 @@
 <template>
   <h4 class="p-4 text-white text-center" :class="allCompleted ? 'bg-success':'bg-primary'">
-    Tasks App (2 tasks to do)
+    Tasks App ({{ remainingCount }} tasks to do)
   </h4>
 </template>
 
@@ -16,8 +16,9 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const allCompleted = computed(() => props.tasks.filter(t => !t.done).length === 0)
-    return {allCompleted}
+    const remainingCount = computed(() => props.tasks.filter(t => !t.done).length)
+    const allCompleted = computed(() => remainingCount.value === 0)
+    return {allCompleted, remainingCount}
   }
 })
 </script>
