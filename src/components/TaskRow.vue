@@ -1,5 +1,6 @@
 <template>
-  <li class="list-group-item d-flex justify-content-between align-items-center" :class="{'list-group-item-secondary': task.done}">
+  <li class="list-group-item d-flex justify-content-between align-items-center"
+      :class="{'list-group-item-secondary': task.done}">
     <div>
       <input
           class="form-check-input me-1"
@@ -16,23 +17,22 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Task, TaskInterface } from '@/models/models';
-
-interface Props {
-  task?: Task
-}
+import { TaskInterface } from '@/models/models';
 
 export default defineComponent({
   props: {
-    task: Task
+    task: {
+      type: Object as () => TaskInterface,
+      required: true
+    }
   },
   emits: {
-    toggle: (task: Task) => {
+    toggle: (task: TaskInterface) => {
       return true;
     },
-    delete: (task: Task) => true
+    delete: (task: TaskInterface) => true
   },
-  setup(props: Props, {emit}) {
+  setup(props, {emit}) {
     const handleCheckbox = () => {
       emit('toggle', props.task!)
     }
