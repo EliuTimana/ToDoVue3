@@ -17,20 +17,20 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { TaskInterface } from '@/models/models';
+import { Task } from '@/models/models';
 
 export default defineComponent({
   props: {
     task: {
-      type: Object as () => TaskInterface,
+      type: Object as () => Task,
       required: true
     }
   },
   emits: {
-    toggle: (task: TaskInterface) => {
+    toggle: (task: Task) => {
       return true;
     },
-    delete: (task: TaskInterface) => true
+    delete: (task: Task) => true
   },
   setup(props, {emit}) {
     const handleCheckbox = () => {

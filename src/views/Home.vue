@@ -9,9 +9,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, watchEffect } from 'vue';
+import { computed, defineComponent, ref, watchEffect } from 'vue';
 import TaskRow from '@/components/TaskRow.vue';
-import { Task, TaskInterface } from '@/models/models';
+import { Task } from '@/models/models';
 import TaskBanner from '@/components/TaskBanner.vue';
 import TaskCreator from '@/components/TaskCreator.vue';
 
@@ -22,12 +22,12 @@ export default defineComponent({
     const showCompleted = ref(true);
     const tasks = ref<Task[]>([]);
     const allTasks = computed(() => showCompleted.value ? tasks.value : tasks.value.filter(t => !t.done));
-    
-    const onToggle = (task: TaskInterface) => {
+
+    const onToggle = (task: Task) => {
       tasks.value = tasks.value.map(t => t.id === task.id ? {...t, done: !t.done} : t);
     }
 
-    const onDelete = (task: TaskInterface) => {
+    const onDelete = (task: Task) => {
       const index = tasks.value.findIndex(t => t.id === task.id);
       const data = [...tasks.value];
       data.splice(index, 1);
@@ -36,7 +36,7 @@ export default defineComponent({
 
     const onCreate = (description: string) => {
       const newId = tasks.value.length > 0 ? Math.max(...tasks.value.map(t => t.id)) + 1 : 1;
-      const newTask: TaskInterface = {
+      const newTask: Task = {
         id: newId,
         description: description,
         done: false
@@ -51,7 +51,7 @@ export default defineComponent({
 
     const loadTasks = () => {
       const raw = localStorage.getItem('tasks')
-      if(raw) {
+      if (raw) {
         tasks.value = JSON.parse(raw)
       } else {
         tasks.value = [

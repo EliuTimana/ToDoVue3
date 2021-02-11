@@ -6,12 +6,12 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { TaskInterface } from '@/models/models';
+import { Task } from '@/models/models';
 
 export default defineComponent({
   props: {
     tasks: {
-      type: Object as () => TaskInterface[],
+      type: Object as () => Task[],
       required: true
     }
   },
